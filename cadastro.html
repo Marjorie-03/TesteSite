@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro - Plataforma de Jogos</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Plataforma de Jogos</h1>
+  </header>
+  <main class="container">
+    <h2>Cadastre-se</h2>
+    <form id="cadastro-form">
+      <input type="text" id="nome" placeholder="Nome Completo" required>
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="text" id="usuario" placeholder="Nome de Usuário" required>
+      <input type="password" id="senha" placeholder="Senha" required>
+      <input type="password" id="confirmar_senha" placeholder="Confirmar Senha" required>
+      <button type="submit">Cadastrar</button>
+    </form>
+    <p>Já tem conta? <a href="index.html">Faça login</a></p>
+  </main>
+  <footer>
+    <p>&copy; 2023 Plataforma de Jogos</p>
+  </footer>
+  <script>
+    document.getElementById('cadastro-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const nome = document.getElementById('nome').value;
+      const email = document.getElementById('email').value;
+      const usuario = document.getElementById('usuario').value;
+      const senha = document.getElementById('senha').value;
+      const confirmarSenha = document.getElementById('confirmar_senha').value;
+
+      if (senha !== confirmarSenha) {
+        alert('As senhas não coincidem!');
+        return;
+      }
+
+      const user = { nome, email, usuario, senha };
+      localStorage.setItem('user', JSON.stringify(user));
+      alert('Cadastro realizado com sucesso!');
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>

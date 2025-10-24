@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Perfil - Plataforma de Jogos</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Plataforma de Jogos</h1>
+    <nav>
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="equipe.html">Equipe</a></li>
+        <li><a href="projeto.html">Sobre o Projeto</a></li>
+        <li><a href="adicionar-jogo.html">Adicionar Jogo</a></li>
+        <li><a href="chat.html">Chat</a></li>
+        <li><a href="index.html">Sair</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="container">
+    <h2>Editar Perfil</h2>
+    <form id="perfil-form">
+      <input type="text" id="nome" placeholder="Nome Completo" required>
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="text" id="usuario" placeholder="Nome de Usuário" required>
+      <input type="password" id="senha" placeholder="Nova Senha (deixe em branco para manter)">
+      <button type="submit">Salvar Alterações</button>
+    </form>
+  </main>
+  <footer>
+    <p>&copy; 2023 Plataforma de Jogos</p>
+  </footer>
+  <script>
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      document.getElementById('nome').value = user.nome;
+      document.getElementById('email').value = user.email;
+      document.getElementById('usuario').value = user.usuario;
+    }
+
+    document.getElementById('perfil-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const nome = document.getElementById('nome').value;
+      const email = document.getElementById('email').value;
+      const usuario = document.getElementById('usuario').value;
+      const senha = document.getElementById('senha').value;
+
+      const updatedUser = { ...user, nome, email, usuario };
+      if (senha) updatedUser.senha = senha;
+
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+      localStorage.setItem('loggedInUser', usuario);
+      alert('Perfil atualizado com sucesso!');
+      window.location.href = 'dashboard.html';
+    });
+  </script>
+</body>
+</html>

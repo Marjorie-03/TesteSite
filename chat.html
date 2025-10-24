@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat - Plataforma de Jogos</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Plataforma de Jogos</h1>
+    <nav>
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="equipe.html">Equipe</a></li>
+        <li><a href="projeto.html">Sobre o Projeto</a></li>
+        <li><a href="adicionar-jogo.html">Adicionar Jogo</a></li>
+        <li><a href="chat.html">Chat</a></li>
+        <li><a href="index.html">Sair</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="container">
+    <h2>Chat da Comunidade</h2>
+    <div id="chat-messages"></div>
+    <form id="chat-form">
+      <input type="text" id="message-input" placeholder="Digite sua mensagem..." required>
+      <button type="submit">Enviar</button>
+    </form>
+  </main>
+  <footer>
+    <p>&copy; 2023 Plataforma de Jogos</p>
+  </footer>
+  <script>
+    const messagesContainer = document.getElementById('chat-messages');
+    const chatForm = document.getElementById('chat-form');
+    const messageInput = document.getElementById('message-input');
+
+    // Simulação de mensagens (usando localStorage)
+    let messages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+
+    function displayMessages() {
+      messagesContainer.innerHTML = '';
+      messages.forEach(msg => {
+        const div = document.createElement('div');
+        div.className = 'message';
+        div.innerHTML = `<strong>${msg.user}:</strong> ${msg.text}`;
+        messagesContainer.appendChild(div);
+      });
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    chatForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const text = messageInput.value;
+      const user = localStorage.getItem('loggedInUser') || 'Usuário';
+      messages.push({ user, text });
+      localStorage.setItem('chatMessages', JSON.stringify(messages));
+      messageInput.value = '';
+      displayMessages();
+    });
+
+    displayMessages();
+  </script>
+</body>
+</html>
